@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot for individual Board renders accurate board from provided props 1`] = `
+<div>
+  <div>
+    Winner!
+  </div>
+</div>
+`;

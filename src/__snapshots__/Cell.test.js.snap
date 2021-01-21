@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot for individual cell matches a lit Cell 1`] = `
+<div>
+  <table>
+    <tbody>
+      <tr>
+        <td
+          class="Cell Cell-lit"
+        />
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`snapshot for individual cell matches an unlit Cell 1`] = `
+<div>
+  <table>
+    <tbody>
+      <tr>
+        <td
+          class="Cell "
+        />
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

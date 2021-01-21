@@ -38,7 +38,7 @@ function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.15 }) {
       let boardRow = [];
       for (let col = 0; col < ncols; col++) {
         const randNum = Math.random();
-        const isOn = (randNum <= chanceLightStartsOn);
+        const isOn = (randNum < chanceLightStartsOn);
         boardRow.push(isOn);
       }
       initialBoard.push(boardRow);
@@ -102,7 +102,7 @@ function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.15 }) {
       />);
     }
 
-    tableBoard.push(<tr key={row}> {tableBoardRow} </tr>);
+    tableBoard.push(<tr key={row}>{tableBoardRow}</tr>);
   }
 
   // TODO
