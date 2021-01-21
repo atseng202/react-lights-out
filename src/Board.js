@@ -27,7 +27,7 @@ import "./Board.css";
  *
  **/
 
-function Board({ nrows, ncols, chanceLightStartsOn }) {
+function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.15 }) {
   const [board, setBoard] = useState(createBoard());
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -38,7 +38,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       let boardRow = [];
       for (let col = 0; col < ncols; col++) {
         const randNum = Math.random();
-        const isOn = (randNum <= chanceLightStartsOn); 
+        const isOn = (randNum <= chanceLightStartsOn);
         boardRow.push(isOn);
       }
       initialBoard.push(boardRow);
@@ -64,31 +64,60 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       };
 
       // TODO: Make a (deep) copy of the oldBoard
-      let boardCopy = [];
-      for (let row of board) {
-        let boardCopyRow = [];
-        for (let cell of row) {
-          boardCopyRow.push(cell);
-        }
-        boardCopy.push(boardCopyRow);
-      }
+      let boardCopy = board.map(row => [...row]);
+
 
       // TODO: in the copy, flip this cell and the cells around it
+      flipCell(y, x, boardCopy);
+      flipCell(y, x - 1, boardCopy);
+      flipCell(y, x + 1, boardCopy);
+      flipCell(y - 1, x, boardCopy);
+      flipCell(y + 1, x, boardCopy);
 
       // TODO: return the copy
+      return boardCopy;
     });
   }
 
   // if the game is won, just show a winning msg & render nothing else
+  if (hasWon()) {
+    return <div>Winner!</div>
+  }
 
   // TODO
 
   // make table board
 
+  let tableBoard = [];
+
+  for (let row = 0; row < nrows; row++) {
+    let tableBoardRow = [];
+    for (let col = 0; col < ncols; col++) {
+      let coord = `${row}-${col}`;
+
+      tableBoardRow.push(<Cell
+        key={coord}
+        flipCellsAroundMe={evt => flipCellsAround(coord)}
+        isLit={board[row][col]}
+      />);
+    }
+
+    tableBoard.push(<tr key={row}> {tableBoardRow} </tr>);
+  }
+
   // TODO
 
   //NOTE: To pass coord to Cell, provide coord in callback in Cell prop
-  // <Cell flipCellsAroundMe={ evt => flipCellsARound((y,x)) }
+  // <Cell flipCellsAroundMe={evt => flipCellsARound((y, x))}
+
+  return (
+    <table className="Board">
+      <tbody className="Board-body">
+        {tableBoard}
+      </tbody>
+    </table>
+
+  );
 }
 
 export default Board;
