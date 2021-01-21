@@ -2,7 +2,9 @@
 
 exports[`snapshot for individual Board renders accurate board from provided props 1`] = `
 <div>
-  <div>
+  <div
+    class="Board-winMsg"
+  >
     Winner!
   </div>
 </div>
